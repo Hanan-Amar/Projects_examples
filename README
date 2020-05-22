@@ -1,0 +1,14 @@
+  
+rep. including 2 projects exmaples (written for HUJI courses)
+
+DirectoryProccessor- OOP (Java) project, implenents a directory-query application. 
+                     Runs queries on a given a dirname, acorrding to commandfile (.flt file, holds queries arguments).
+                     
+                     given as an exmaple for modular implmetation (adding new filters/orders types), generelaized parser
+                     and project design.
+                     
+PanoramaGenerator- image proccessing (python) project, implementing algorithms for image alignment.
+                   (harris corrner detector, ransac ... ) as an example for using numpy.
+                   unfortunately i have no driver for this project so it cannot be runned (course git removed). 
+                   
+                   ## from line 334 (commented) and on, is supplied code, i havent written it.
