@@ -1,0 +1,1 @@
+jar -cvf ex5.jar filesprocessing/*.java filea READMEsprocessing/Subsections/*.java filesprocessing/Parsing/*.jav

@@ -1,0 +1,8 @@
+FILTER
+between#-1#5#NOT
+ORDER
+abs
+FILTER
+writable#asd#NOT
+ORDER
+abs

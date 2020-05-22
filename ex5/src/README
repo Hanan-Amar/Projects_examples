@@ -1,0 +1,62 @@
+hanan.amar
+
+=============================
+=           Design          =
+=============================
+
+ive defined 2 sub-packages:
+        - Subsections: representation of the different subsections.
+                - Order: interface represents an order, relevant to files only!
+                    - method isBefore is used for ordering.
+                - Filter: interface represents an filter, relevant to files only!
+                    - method pass() returns a Predicate used for filtering.
+                      i use this method because the arguments used for constructing a filter
+                      are got at runtime, and using predicates prevents dividing many methods to cases.
+                - FilterTypes and OrderTypes: Enums representing the allowed types of subsections.
+                                              used to connect all parts (rules, predicates etc.)
+        - Parser: the package used to translate the command file string to instances.
+                - CommandFileParser: the main parser (called by the manager)
+                - ParseRules: holds the rules for parsing each type of filter and order by
+                              num of arguments, and valid checks of arguments.
+                              using this class i can formalize the adding of new Filters and Orders,
+                              keeping the open close principal. (more in adding new filters section)
+                - Factories: FilterFactory defines the different predicates, OrderFactory defines orders.
+
+the main package fileProcessing:
+        - DirectoryProcessor: the main class (manager). parses, filters, order, prints.
+        - Section: represents a section in the commandfile.
+        - Toolbox: help class for the package:
+            - ValidInputChecks: for checking arguments.
+            - Conversation: for converting types and values.
+            - File Tools: for working with files.
+
+exception handling:
+        - under Parsing subpackage there are 2 main Exception types:
+                - ParseWarningException: represents an type 1 error raised from parsing args. all of which
+                            corresponds to the same conclusion: using default and printing warnings.
+                            i defined these subclasses for distinguish what threw the exceptions in the future:
+                            - ParseTypeWarning: thrown when the filter or order type is illegal.
+                            - ParseArgumentsWarning: thrown when the given arguments are illegal amount,
+                                                      type or value.
+                - ParseBadCimmandFileException: represents an type 2 error raised from parsing file structure.
+                            all corresponds to the same conclusion: stop parsing and print error.
+                            i defined these subclasses for distinguish what threw the exceptions in the future:
+                            - ParseBadSectionHeader: thrown if the FILTER / ORDER headers are illegal.
+                            - ParseOrderSectionMissing: thrown if order subsection dosenot appear in file.
+
+- Adding new Filter and Order Types.
+      when designing i kept in mind the future of adding new types. finally, adding new requires:
+        - (NAME) Adding the Type name to the relevent Enum (FilterTypes, OrderTypes).
+        - (PARSE) Adding the relevant ParseRules (creating new instance in the relevant static list).
+        - (ACTION) Adding the creation of the filter/order in the factory.
+      it might seems alot to add, but every bullet talks about a different phase in the action of the type,
+      or the creation of the type.
+
+
+Sorting:
+    - i used Heapsort to sort the files. i chose it because:
+        1. its Efficiency: (nlogn) which is best for comparision algorithms, when nothing is known about the
+           sorted items. in our case we do know a bit about the sorted items from the filter applied,
+           but in my opinion this knowledge isnt valuable enough for using many sorting cases.
+        2. easy to Implement: Heapsort allegedly uses a heap, or a binary tree, but it dosent require
+           to actually use the data structure, because of its known logic. the heap is represented as an array.
